@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Page from '~/pages/Page';
+import Sign from '~/pages/Sign';
 import HelloWorld from '~/pages/HelloWorld';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={HelloWorld} />
-      <Route path="/page" component={Page} />
+      <Route path="/page" component={Sign} />
     </Switch>
   );
 }
