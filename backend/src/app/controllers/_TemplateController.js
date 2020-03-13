@@ -5,19 +5,19 @@ import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
 class DeliverymanController {
-  async index(res, req) {
+  async index(req, res) {
     return res.json();
   }
 
-  async store(res, req) {
+  async store(req, res) {
     return res.json();
   }
 
-  async update(res, req) {
+  async update(req, res) {
     return res.json();
   }
 
-  async delete(res, req) {
+  async delete(req, res) {
     return res.json();
   }
 }
