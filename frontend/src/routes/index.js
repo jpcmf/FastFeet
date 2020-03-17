@@ -4,8 +4,12 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
+
 import OrdersList from '~/pages/Orders/List';
 import OrdersForm from '~/pages/Orders/Form';
+
+import DeliveryMenList from '~/pages/DeliveryMen/List';
+import DeliveryMenForm from '~/pages/DeliveryMen/Form';
 
 export default function Routes() {
   return (
@@ -14,6 +18,9 @@ export default function Routes() {
 
       <Route path="/orders" exact component={OrdersList} isPrivate />
       <Route path="/orders/edit" component={OrdersForm} isPrivate />
+
+      <Route path="/deliverymen" exact component={DeliveryMenList} isPrivate />
+      <Route path="/deliverymen/edit" component={DeliveryMenForm} isPrivate />
     </Switch>
   );
 }

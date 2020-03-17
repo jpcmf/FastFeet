@@ -93,7 +93,7 @@ export const BodyContent = styled.div`
 
     div.line {
       display: grid;
-      grid-template-columns: 8% 25% 24% 13% 10% 15% 5%;
+      grid-template-columns: 10% 10% 30% 45% 5%;
       width: 100%;
       background: #fff;
       margin-bottom: 21px;
@@ -174,32 +174,6 @@ export const Button = styled.button`
   }
 `;
 
-export const StatusContent = styled.div`
-  align-items: center;
-  background-color: ${props => props.status.background};
-  border-radius: 15px;
-  color: ${props => props.status.color};
-  display: flex;
-  font-size: 14px;
-  font-weight: bold;
-  justify-content: center;
-  padding: 4px 10px 4px 22px;
-  position: relative;
-
-  span {
-    &:before {
-      position: absolute;
-      content: '';
-      height: 10px;
-      width: 10px;
-      left: 8px;
-      top: 7px;
-      background: ${props => props.status.color};
-      border-radius: 50%;
-    }
-  }
-`;
-
 export const ActionButton = styled.button``;
 
 export const ContextMenu = styled.div`
@@ -265,73 +239,5 @@ export const ContextMenu = styled.div`
         border-top: 1px solid #eee;
       }
     }
-  }
-`;
-
-export const ModalShowOrder = styled.div`
-  visibility: ${props => (props.visible ? 'block' : 'hidden')};
-  background-color: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  display: flex;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ModalBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
-  border-radius: 4px;
-  width: 500px;
-  max-width: 500px;
-  background-color: #fff;
-  position: relative;
-
-  button {
-    align-self: flex-end;
-    background-color: #7d40e7;
-    border-radius: 50%;
-    /* border: 0; */
-    border: 3px solid #fff;
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    height: 35px;
-    /* margin-top: -40px; */
-    padding: 5px;
-    width: 35px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-
-  p {
-    font-size: 16px;
-    color: #666;
-    line-height: 26px;
-  }
-
-  p.modalTitle {
-    font-size: 14px;
-    color: #444;
-    font-weight: bold;
-  }
-
-  hr {
-    border: 0;
-    border-bottom: solid 1px #eee;
-    margin: 10px 0;
-  }
-
-  img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
   }
 `;

@@ -105,7 +105,7 @@ export default function OrdersList() {
           avatarUrl:
             order.deliveryman_id && order.deliveryman.avatar
               ? order.deliveryman.avatar.url
-              : `https://avatar.oxro.io/avatar?name=`,
+              : `https://avatar.oxro.io/avatar?name=${order.name}`,
         };
       });
 
