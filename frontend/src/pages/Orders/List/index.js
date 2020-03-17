@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { zonedTimeToUtc } from 'date-fns-tz';
@@ -12,7 +12,6 @@ import {
   MdVisibility,
   MdEdit,
   MdDeleteForever,
-  // MdRefresh,
   MdMoreHoriz,
 } from 'react-icons/md';
 
@@ -35,8 +34,7 @@ import ConfirmAlert from '~/components/ConfirmAlert';
 import api from '~/services/api';
 import history from '~/services/history';
 
-export default function List() {
-  const ref = useRef();
+export default function OrdersList() {
   const [page, setPage] = useState(1);
   const [orders, setOrders] = useState([]);
   const [oneOrder, setOneOrder] = useState({});
