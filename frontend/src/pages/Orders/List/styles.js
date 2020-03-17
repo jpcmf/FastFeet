@@ -33,7 +33,9 @@ export const Container = styled.div`
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
-      padding: 10px;
+      padding: 7px 10px;
+      max-width: 237px;
+      width: 100%;
 
       input {
         border: 0;
@@ -41,6 +43,7 @@ export const Container = styled.div`
         font-size: 14px;
         line-height: 16px;
         margin-left: 10px;
+        width: 100%;
       }
     }
   }
@@ -98,7 +101,7 @@ export const BodyContent = styled.div`
       font-size: 16px;
       text-align: left;
       align-items: center;
-      padding: 16px;
+      padding: 11px 14px 11px 25px;
       border-radius: 4px;
 
       div {
@@ -109,9 +112,10 @@ export const BodyContent = styled.div`
 
       div.tableTitle {
         > button {
-          background: #fff;
+          background-color: #fff;
           border: 0px;
           font-weight: bold;
+          margin-left: auto;
         }
       }
     }
@@ -139,8 +143,9 @@ export const StyledLink = styled(Link)`
   color: #fff;
   display: flex;
   flex-direction: row;
+  font-size: 14px;
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 8px 15px;
   text-decoration: none;
   transition: background-color 300ms ease;
 
@@ -182,7 +187,7 @@ export const StatusContent = styled.div`
   font-size: 14px;
   font-weight: bold;
   justify-content: center;
-  padding: 3px 10px 3px 22px;
+  padding: 4px 10px 4px 22px;
   position: relative;
 
   span {
@@ -192,7 +197,7 @@ export const StatusContent = styled.div`
       height: 10px;
       width: 10px;
       left: 8px;
-      top: 6px;
+      top: 7px;
       background: ${props => props.status.color};
       border-radius: 50%;
     }
@@ -223,12 +228,14 @@ export const ContextMenu = styled.div`
   ul {
     background-color: #fff;
     border-radius: 4px;
-    border: solid 1px #ddd;
-    box-shadow: 2px 1px 5px #a0a0a0;
+    /* border: solid 1px #ddd; */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
     padding: 10px;
     position: absolute;
-    transform: translate(-50%, -119%);
-    z-index: 999;
+    /* transform: translate(-50%, -119%); */
+    right: 35px;
+    z-index: 2;
+    top: -5px;
 
     li {
       align-items: center;
@@ -236,7 +243,14 @@ export const ContextMenu = styled.div`
       display: flex;
       flex-direction: row;
       font-weight: 100;
-      padding: 8px 15px;
+      padding: 7px 15px 7px 0;
+
+      &:hover {
+        /* background-color: #f5f5f5; */
+        button {
+          opacity: 0.8;
+        }
+      }
 
       > svg {
         margin-right: -27px;
@@ -244,10 +258,7 @@ export const ContextMenu = styled.div`
 
       button {
         padding-left: 35px;
-      }
-
-      &:hover {
-        background: #eee;
+        transition: all 300ms ease;
       }
 
       & + span {
@@ -283,21 +294,25 @@ export const ModalBox = styled.div`
   border-radius: 4px;
   width: 500px;
   max-width: 500px;
-  background: #fff;
+  background-color: #fff;
+  position: relative;
 
   button {
-    border: 0;
+    align-self: flex-end;
     background-color: #7d40e7;
     border-radius: 50%;
-    padding: 5px;
-    align-self: flex-end;
-    margin-top: -40px;
-    font-size: 16px;
-    width: 35px;
+    /* border: 0; */
     border: 3px solid #fff;
+    color: #fff;
+    font-size: 12px;
     font-weight: bold;
     height: 35px;
-    color: #fff;
+    /* margin-top: -40px; */
+    padding: 5px;
+    width: 35px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
 
   p {

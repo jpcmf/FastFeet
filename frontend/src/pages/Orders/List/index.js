@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { zonedTimeToUtc } from 'date-fns-tz';
@@ -12,7 +12,8 @@ import {
   MdVisibility,
   MdEdit,
   MdDeleteForever,
-  MdRefresh,
+  // MdRefresh,
+  MdMoreHoriz,
 } from 'react-icons/md';
 
 import { FiLoader } from 'react-icons/fi';
@@ -35,6 +36,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 export default function List() {
+  const ref = useRef();
   const [page, setPage] = useState(1);
   const [orders, setOrders] = useState([]);
   const [oneOrder, setOneOrder] = useState({});
@@ -82,8 +84,6 @@ export default function List() {
         params: { page, q },
       });
 
-      console.log(response.data);
-
       const data = response.data.rows.map(order => {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -118,14 +118,14 @@ export default function List() {
     loadOrders();
   }, [page, q, reg]);
 
-  async function handleDelete(id) {
+  async function handleDelete(order) {
     async function deleteOrder() {
       try {
-        await api.delete(`/orders/${id}`);
+        await api.delete(`/orders/${order.id}`);
 
         toast.success('Encomenda excluída com sucesso.');
 
-        setOrders(orders.filter(currentOrder => currentOrder.id !== id));
+        setOrders(orders.filter(currentOrder => currentOrder.id !== order.id));
       } catch (error) {
         toast.error('Não foi possível excluir esta encomenda.');
       }
@@ -141,8 +141,9 @@ export default function List() {
           title="Tem certeza que deseja excluir esta encomenda?"
           message={
             <p>
-              Ao confirmar que a encomenda <strong>{id}</strong> será excluída
-              não será possível reverter. Tem certeza que deseja excluir?
+              Ao confirmar que a encomenda <strong>{order.product}</strong> será
+              excluída não será possível reverter. <br />
+              Tem certeza que deseja excluir?
             </p>
           }
         />
@@ -190,7 +191,10 @@ export default function List() {
             <strong>Entrega:</strong> {oneOrder && oneOrder.endDateFormatted}
           </p>
           <hr />
-          <div className="modalTitle">Assinatura do destinatário</div>
+          <p className="modalTitle">
+            <strong>Assinatura do destinatário</strong>
+          </p>
+
           {oneOrder.signature ? (
             <img src={oneOrder.signature.url} alt={oneOrder.signature.name} />
           ) : (
@@ -278,7 +282,11 @@ export default function List() {
                     focusOut={() => handleVisible(order.id)}
                     onClick={() => handleVisible(order.id)}
                   >
-                    {order.id === visible ? ' X' : '...'}
+                    {order.id === visible ? (
+                      <MdMoreHoriz size={30} color="#f5f5f5" />
+                    ) : (
+                      <MdMoreHoriz size={30} color="#c6c6c6" />
+                    )}
                   </ActionButton>
                   <ContextMenu
                     available={!(order.end_date || order.canceled_at)}
@@ -314,7 +322,7 @@ export default function List() {
                           <MdDeleteForever size={20} color="#DE3B3B" />{' '}
                           <button
                             type="button"
-                            onClick={() => handleDelete(order.id)}
+                            onClick={() => handleDelete(order)}
                           >
                             Excluir
                           </button>
