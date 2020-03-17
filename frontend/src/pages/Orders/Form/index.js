@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+
+import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import { Form, Input } from '@rocketseat/unform';
+
+import {
+  Container,
+  Header,
+  StyledButton,
+  Content,
+  CustomAsyncSelect,
+} from './styles';
+
+import history from '~/services/history';
+import api from '~/services/api';
+
+export default function OrdersForm({ history: navigation }) {
+  const { order } = navigation.location.state || '';
+  const [loading, setLoading] = useState(false);
+  const [recipient, setRecipient] = useState(order ? order.recipient : '');
+  const [deliveryman, setDeliveryman] = useState(
+    order ? order.deliveryman : ''
+  );
+
+  async function loadRecipients(q) {
+    const response = await api.get('/recipients', { params: { q } });
+
+    return new Promise(resolve => {
+      resolve(
+        response.data.rows.map(st => {
+          return {
+            value: st.id,
+            label: st.name,
+            ...st,
+          };
+        })
+      );
+    });
+  }
+
+  async function loadDeliverymen(q) {
+    const response = await api.get('/deliverymen', { params: { q } });
+
+    return new Promise(resolve => {
+      resolve(
+        response.data.rows.map(st => {
+          return {
+            value: st.id,
+            label: st.name,
+            ...st,
+          };
+        })
+      );
+    });
+  }
+
+  async function handleSubmit(o) {
+    let errors = 0;
+
+    if (recipient === null || recipient === '') {
+      toast.error('O destinatário precisa ser selecionando.');
+    }
+
+    if (deliveryman === null || deliveryman === '') {
+      toast.error('O entregador precisa ser selecionando.');
+    }
+
+    if (o.product === '') {
+      toast.error('O produto precisa ser preenchido.');
+      errors += 1;
+    }
+
+    if (errors >= 1) return;
+
+    if (order) {
+      try {
+        setLoading(true);
+
+        await api.put(`/orders/${order.id}`, {
+          recipient_id: recipient.id,
+          deliveryman_id: deliveryman.id,
+          product: o.product,
+        });
+
+        setLoading(false);
+
+        toast.success('A encomenda foi editada com sucesso.');
+      } catch (error) {
+        setLoading(false);
+
+        toast.error('Erro ao editar encomenda.');
+      }
+    } else {
+      try {
+        setLoading(true);
+
+        await api.post(`/orders`, {
+          recipient_id: recipient.id,
+          deliveryman_id: deliveryman.id,
+          product: o.product,
+        });
+
+        setLoading(false);
+
+        toast.success('A encomenda foi cadastrada com sucesso.');
+
+        history.push('/orders');
+      } catch (error) {
+        setLoading(false);
+
+        toast.error('Erro ao cadastrar encomenda.');
+      }
+    }
+  }
+  return (
+    <Container>
+      <Form initialData={order} onSubmit={handleSubmit}>
+        <Header>
+          <p>{order ? 'Edição' : 'Cadastro'} de encomendas</p>
+          <div className="headerButtons">
+            <StyledButton onClick={() => history.push('/orders')} type="button">
+              <MdKeyboardArrowLeft size={20} color="#fff" />
+              VOLTAR
+            </StyledButton>
+            <StyledButton type="submit">
+              <MdCheck size={20} color="#fff" />
+              {loading ? 'SALVANDO...' : 'SALVAR'}
+            </StyledButton>
+          </div>
+        </Header>
+
+        <Content>
+          <div className="searchInputs">
+            <div>
+              <span>Destinatário</span>
+              <CustomAsyncSelect
+                isSearchable
+                defaultOptions
+                loadOptions={e => loadRecipients(e)}
+                defaultValue={{
+                  label: order ? order.recipient.name : '',
+                  value: order ? order.recipient : '',
+                }}
+                onChange={e => setRecipient(e)}
+                name="recipient"
+              />
+            </div>
+            <div>
+              <span>Entregador</span>
+              <CustomAsyncSelect
+                isSearchable
+                defaultOptions
+                loadOptions={e => loadDeliverymen(e)}
+                defaultValue={{
+                  label:
+                    order && order.deliveryman ? order.deliveryman.name : '',
+                  value: order && order.deliveryman ? order.deliveryman : '',
+                }}
+                onChange={e => setDeliveryman(e)}
+                name="deliveryman"
+              />
+            </div>
+          </div>
+          <div className="product">
+            <span>Nome do produto</span>
+            <Input name="product" type="text" placeholder="Nome do produto" />
+          </div>
+        </Content>
+      </Form>
+    </Container>
+  );
+}
+
+OrdersForm.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
