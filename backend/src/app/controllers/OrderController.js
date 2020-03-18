@@ -43,7 +43,7 @@ class OrderController {
         },
       ],
       order: [['id', 'ASC']],
-      limit: 4,
+      limit: 6,
       offset: (currentPage - 1) * 4,
     });
 
