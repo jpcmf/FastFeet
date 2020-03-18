@@ -18,9 +18,9 @@ class RecipientController {
     }
 
     const recipients = await Recipient.findAndCountAll({
-      where: { name: { [Op.iLike]: `%${name}` } },
+      where: { name: { [Op.iLike]: `%${name}%` } },
       order: [['name', 'ASC']],
-      limit: 5,
+      limit: 6,
       offset: (currentPage - 1) * 5,
     });
 

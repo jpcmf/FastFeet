@@ -27,7 +27,7 @@ class DeliverymanController {
 
     const deliverymans = await Deliveryman.findAndCountAll({
       where: {
-        name: { [Op.iLike]: `%${name}` },
+        name: { [Op.iLike]: `%${name}%` },
       },
       include: [
         {
@@ -37,7 +37,7 @@ class DeliverymanController {
         },
       ],
       order: [['name', 'ASC']],
-      limit: 4,
+      limit: 6,
       offset: (currentPage - 1) * 4,
     });
 

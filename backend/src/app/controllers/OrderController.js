@@ -17,7 +17,7 @@ class OrderController {
 
     const orders = await Order.findAndCountAll({
       where: {
-        product: { [Op.iLike]: `%${name}` },
+        product: { [Op.iLike]: `%${name}%` },
       },
       include: [
         {
