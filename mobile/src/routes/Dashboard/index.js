@@ -20,8 +20,8 @@ export default function Dashboard() {
           activeTintColor: '#7d40e7',
           style: {
             height: 70,
-            paddingTop: 15,
-            paddingBottom: 15,
+            paddingTop: 19,
+            paddingBottom: 12,
           },
         }}
       >
@@ -33,7 +33,7 @@ export default function Dashboard() {
               <Icon
                 name="reorder"
                 color={focused ? '#7D40E7' : '#ddd'}
-                size={32}
+                size={20}
               />
             ),
           }}
@@ -46,7 +46,7 @@ export default function Dashboard() {
               <Icon
                 name="account-circle"
                 color={focused ? '#7D40E7' : '#ddd'}
-                size={32}
+                size={20}
               />
             ),
           }}
