@@ -14,6 +14,8 @@ import DeliveryMenForm from '~/pages/DeliveryMen/Form';
 import RecipientsList from '~/pages/Recipients/List';
 import RecipientsForm from '~/pages/Recipients/Form';
 
+import OrderProblems from '~/pages/OrderProblems';
+
 export default function Routes() {
   return (
     <Switch>
@@ -27,6 +29,8 @@ export default function Routes() {
 
       <Route path="/recipients" exact component={RecipientsList} isPrivate />
       <Route path="/recipients/edit" component={RecipientsForm} isPrivate />
+
+      <Route path="/order-problems" component={OrderProblems} isPrivate />
     </Switch>
   );
 }
