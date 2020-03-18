@@ -103,6 +103,10 @@ export const Content = styled.div`
       outline: 0;
       padding: 12.5px 12px;
       width: 100%;
+
+      &::placeholder {
+        color: #ccc;
+      }
     }
   }
 `;

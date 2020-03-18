@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
-import AsyncSelect from 'react-select/async';
 
 import { darken } from 'polished';
 
@@ -116,6 +115,7 @@ export const BodyContent = styled.div`
           border: 0px;
           font-weight: bold;
           margin-left: auto;
+          display: flex;
         }
       }
     }

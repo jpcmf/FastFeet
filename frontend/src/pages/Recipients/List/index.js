@@ -27,9 +27,9 @@ import ConfirmAlert from '~/components/ConfirmAlert';
 import api from '~/services/api';
 import history from '~/services/history';
 
-export default function DeliveryMenList() {
+export default function RecipientsList() {
   const [page, setPage] = useState(1);
-  const [deliverymen, setDeliverymen] = useState([]);
+  const [recipients, setRecipients] = useState([]);
   const [reg, setReg] = useState(null);
   const [q, setQ] = useState('');
   const [visible, setVisible] = useState(0);
@@ -38,27 +38,29 @@ export default function DeliveryMenList() {
   useEffect(() => {
     setLoading(true);
 
-    async function loadDeliveryMen() {
-      const response = await api.get('/deliverymen', {
+    async function loadRecipients() {
+      const response = await api.get('/recipients', {
         params: { page, q },
       });
 
-      const data = response.data.rows.map(deliveryman => {
+      console.log(response.data.rows);
+
+      const data = response.data.rows.map(recipient => {
         return {
-          ...deliveryman,
-          avatarUrl: deliveryman.avatar
-            ? deliveryman.avatar.url
-            : `https://avatar.oxro.io/avatar?name=${deliveryman.name}`,
+          ...recipient,
+          avatarUrl: recipient.avatar
+            ? recipient.avatar.url
+            : `https://avatar.oxro.io/avatar?name=${recipient.name}`,
         };
       });
 
       setReg(response.data.count);
       setLoading(false);
-      setDeliverymen(data);
+      setRecipients(data);
     }
 
-    loadDeliveryMen();
-  }, [page, q]);
+    loadRecipients();
+  }, [page, q, reg]);
 
   function handleNextPage() {
     setPage(page + 1);
@@ -68,20 +70,23 @@ export default function DeliveryMenList() {
     setPage(page - 1);
   }
 
-  async function handleDelete(deliveryman) {
-    async function deleteDeliveryman() {
+  async function handleDelete(recipient) {
+    console.log(recipient);
+
+    async function deleteRecipient() {
       try {
-        await api.delete(`/deliverymen/${deliveryman.id}`);
+        await api.delete(`/recipients/${recipient.id}`);
 
-        toast.success('Entregador excluído com sucesso.');
+        toast.success('Destinatário excluído com sucesso.');
 
-        setDeliverymen(
-          deliverymen.filter(
-            currentDeliveryman => currentDeliveryman.id !== deliveryman.id
+        setRecipients(
+          recipients.filter(
+            currentRecipient => currentRecipient.id !== recipient.id
           )
         );
       } catch (error) {
-        toast.error('Não foi possível excluir este entregador.');
+        toast.error('Não foi possível excluir este destinatário.');
+        setVisible(0);
       }
     }
 
@@ -90,12 +95,12 @@ export default function DeliveryMenList() {
         { onClose } // eslint-disable-line
       ) => (
         <ConfirmAlert
-          callback={deleteDeliveryman}
+          callback={deleteRecipient}
           onClose={onClose}
-          title="Tem certeza que deseja excluir este entregador?"
+          title="Tem certeza que deseja excluir este destinatário?"
           message={
             <p>
-              Ao confirmar que o entregador <strong>{deliveryman.name}</strong>{' '}
+              Ao confirmar que o destinatário <strong>{recipient.name}</strong>{' '}
               será excluído não será possível reverter. <br />
               Tem certeza que deseja excluir?
             </p>
@@ -105,17 +110,17 @@ export default function DeliveryMenList() {
     });
   }
 
-  function handleVisible(deliveryman) {
-    if (deliveryman === visible) {
+  function handleVisible(recipient) {
+    if (recipient === visible) {
       setVisible(0);
     }
-    setVisible(deliveryman);
+    setVisible(recipient);
   }
 
   return (
     <Container>
       <header>
-        <p>Gerenciando entregadores</p>
+        <p>Gerenciando destinatários</p>
       </header>
       <div>
         <div className="search">
@@ -123,13 +128,13 @@ export default function DeliveryMenList() {
           <Input
             name="search"
             type="text"
-            placeholder="Buscar por entregadores"
+            placeholder="Buscar por destinatários"
             value={q}
             onChange={e => [setQ(e.target.value), setPage(1)]}
           />
         </div>
 
-        <StyledLink to="/deliverymen/edit" type="button">
+        <StyledLink to="/recipients/edit" type="button">
           <MdAdd size={20} color="#fff" />
           CADASTRAR
         </StyledLink>
@@ -143,41 +148,41 @@ export default function DeliveryMenList() {
         <div className="table">
           <div className="line lineTitle">
             <div className="tableTitle">ID</div>
-            <div className="tableTitle">Foto</div>
             <div className="tableTitle">Nome</div>
-            <div className="tableTitle">E-mail</div>
+            <div className="tableTitle">Endereço</div>
             <div className="tableTitle">Ações</div>
           </div>
 
           {reg !== 0 ? (
             ''
           ) : (
-            <span className="noData">Nenhum entregador localizado.</span>
+            <span className="noData">Nenhum destinatário localizado.</span>
           )}
 
-          {deliverymen.map(deliveryman => (
-            <div key={deliveryman.id} className="line">
-              <div className="tableTitle">#{deliveryman.id}</div>
+          {recipients.map(recipient => (
+            <div key={recipient.id} className="line">
+              <div className="tableTitle">#{recipient.id}</div>
+              <div className="tableTitle">{recipient.name}</div>
               <div className="tableTitle">
-                <img src={deliveryman.avatarUrl} alt="avatar" />
+                {recipient.street}, {recipient.number}, {recipient.city} -{' '}
+                {recipient.state}
+                {recipient.complement ? ` - ${recipient.complement}` : ''}
               </div>
-              <div className="tableTitle">{deliveryman.name}</div>
-              <div className="tableTitle">{deliveryman.email}</div>
 
               <div className="tableTitle">
                 <ActionButton
-                  focusOut={() => handleVisible(deliveryman.id)}
-                  onClick={() => handleVisible(deliveryman.id)}
+                  focusOut={() => handleVisible(recipient.id)}
+                  onClick={() => handleVisible(recipient.id)}
                 >
-                  {deliveryman.id === visible ? (
+                  {recipient.id === visible ? (
                     <MdMoreHoriz size={30} color="#f5f5f5" />
                   ) : (
                     <MdMoreHoriz size={30} color="#c6c6c6" />
                   )}
                 </ActionButton>
                 <ContextMenu
-                  visible={visible === deliveryman.id}
-                  className={deliveryman.id}
+                  visible={visible === recipient.id}
+                  className={recipient.id}
                 >
                   <ul>
                     <li>
@@ -186,8 +191,8 @@ export default function DeliveryMenList() {
                       <button
                         type="button"
                         onClick={() =>
-                          history.push(`/deliverymen/edit/${deliveryman.id}`, {
-                            deliveryman,
+                          history.push(`/recipients/edit/${recipient.id}`, {
+                            recipient,
                           })
                         }
                       >
@@ -199,7 +204,7 @@ export default function DeliveryMenList() {
                       <MdDeleteForever size={20} color="#DE3B3B" />{' '}
                       <button
                         type="button"
-                        onClick={() => handleDelete(deliveryman)}
+                        onClick={() => handleDelete(recipient)}
                       >
                         Excluir
                       </button>
@@ -221,7 +226,7 @@ export default function DeliveryMenList() {
           onClick={handleNextPage}
           disabled={
             (page !== 1 && reg / 4 <= page) ||
-            (page === 1 && deliverymen.length < 4) ||
+            (page === 1 && recipients.length < 4) ||
             (q !== '' && reg === 4) ||
             reg === 4
           }
