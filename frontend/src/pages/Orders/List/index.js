@@ -82,8 +82,6 @@ export default function OrdersList() {
         params: { page, q },
       });
 
-      console.log(response.data.rows);
-
       const data = response.data.rows.map(order => {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 

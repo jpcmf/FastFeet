@@ -43,8 +43,6 @@ export default function RecipientsList() {
         params: { page, q },
       });
 
-      console.log(response.data.rows);
-
       const data = response.data.rows.map(recipient => {
         return {
           ...recipient,
@@ -71,8 +69,6 @@ export default function RecipientsList() {
   }
 
   async function handleDelete(recipient) {
-    console.log(recipient);
-
     async function deleteRecipient() {
       try {
         await api.delete(`/recipients/${recipient.id}`);
