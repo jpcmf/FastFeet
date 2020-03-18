@@ -138,22 +138,138 @@ function Dashboard({ navigation, isFocused }) {
           <WelcomeData>Bem vindo de volta,</WelcomeData>
           <DeliverymanName>{deliveryman.name}</DeliverymanName>
         </DeliverymanData>
+
+        <Logout onPress={handleLogout}>
+          <Icon name="exit-to-app" size={20} color="#E74040" />
+        </Logout>
       </Header>
+
+      <Orders>
+        <OrdersHeader>
+          <OrdersHeaderText>Entregas</OrdersHeaderText>
+
+          <OrdersLinksContainer>
+            <OrdersHeaderLink>
+              <OrdersHeaderLinkText
+                active={!delivered}
+                onPress={() => setDelivered(false)}
+              >
+                Pendentes
+              </OrdersHeaderLinkText>
+            </OrdersHeaderLink>
+
+            <OrdersHeaderLink>
+              <OrdersHeaderLinkText
+                active={delivered}
+                onPress={() => setDelivered(true)}
+              >
+                Entregues
+              </OrdersHeaderLinkText>
+            </OrdersHeaderLink>
+          </OrdersLinksContainer>
+        </OrdersHeader>
+
+        <OrderList
+          key="list"
+          data={orders}
+          keyExtractor={item => String(item.id)}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          onEndReachedThreshold={0.01}
+          bounces={false}
+          onEndReached={() => loadPage()}
+          ListFooterComponent={() => (
+            <>
+              {orders.length === 0 && (
+                <NoOrderText>Não há nenhuma entrega.</NoOrderText>
+              )}
+
+              {loading && <StyledActivityIndicator size="small" color="#000" />}
+            </>
+          )}
+          renderItem={({ item }) => (
+            <OrderBox>
+              <OrderTitle>
+                <Icon
+                  name="local-shipping"
+                  size={25}
+                  color={item.canceled_at ? '#E74040' : '#7D40E7'}
+                />
+                <OrderText canceled={item.canceled_at}>
+                  Encomenda {item.id}
+                </OrderText>
+              </OrderTitle>
+
+              <OrderProgressBar>
+                <ProgressBar canceled={item.canceled_at} />
+                <ProgressBarContent>
+                  <ProgressBarDots>
+                    <WaitingDot
+                      canceled={item.canceled_at}
+                      active={!item.start_date || item.start_date}
+                    />
+                    <WithdrawDot
+                      canceled={item.canceled_at}
+                      active={item.start_date}
+                    />
+                    <DeliveredDot
+                      canceled={item.canceled_at}
+                      active={item.end_date}
+                    />
+                  </ProgressBarDots>
+                  <ProgressBarMessages>
+                    <WaitingText
+                      canceled={item.canceled_at}
+                      active={!item.start_date || item.start_date}
+                    >{`Aguardando\nRetirada`}</WaitingText>
+                    <WithdrawText
+                      canceled={item.canceled_at}
+                      active={item.start_date}
+                    >
+                      Retirada
+                    </WithdrawText>
+                    <DeliveredText
+                      canceled={item.canceled_at}
+                      active={item.end_date}
+                    >
+                      Entregue
+                    </DeliveredText>
+                  </ProgressBarMessages>
+                </ProgressBarContent>
+              </OrderProgressBar>
+
+              <OrderDetails>
+                <OrderDate>
+                  <OrderDateTextTitle>Data</OrderDateTextTitle>
+                  <OrderDateText>{item.formattedDate}</OrderDateText>
+                </OrderDate>
+                <OrderCity>
+                  <OrderCityTextTitle>Cidade</OrderCityTextTitle>
+                  <OrderCityText>{item.recipient.city}</OrderCityText>
+                </OrderCity>
+                <OrderViewDetails
+                  onPress={() => navigation.navigate('OrderDetail', { item })}
+                >
+                  <OrderViewDetailsText canceled={item.canceled_at}>
+                    Ver detalhes
+                  </OrderViewDetailsText>
+                </OrderViewDetails>
+              </OrderDetails>
+            </OrderBox>
+          )}
+        />
+      </Orders>
     </Container>
   );
 }
 
-const TabBarIcon = ({ tintColor }) => (
-  <Icon name="event" size={20} color={tintColor} />
-);
-
-Dashboard.navigationOptions = {
-  tabBarLabel: 'Check-in',
-  tabBarIcon: TabBarIcon,
+Dashboard.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  isFocused: PropTypes.bool,
 };
 
-TabBarIcon.propTypes = {
-  tintColor: PropTypes.string.isRequired,
+Dashboard.defaultProps = {
+  isFocused: false,
 };
 
-export default Dashboard;
+export default withNavigationFocus(Dashboard);

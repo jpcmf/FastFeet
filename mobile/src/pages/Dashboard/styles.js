@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
 import { TouchableOpacity, ActivityIndicator } from 'react-native';
 
-export const Container = styled.View`
-  padding: 20px;
-  background: #fff;
+export const Container = styled.SafeAreaView`
+  background-color: #fff;
   flex: 1;
 `;
 
@@ -12,9 +11,10 @@ export const StyledActivityIndicator = styled(ActivityIndicator)`
 `;
 
 export const Header = styled.View`
-  flex-direction: row;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
+  padding: 20px 20px 0 20px;
 `;
 
 export const DeliverymanAvatar = styled.View`
@@ -22,9 +22,9 @@ export const DeliverymanAvatar = styled.View`
 `;
 
 export const Avatar = styled.Image`
-  width: 68px;
-  height: 68px;
   border-radius: 34px;
+  height: 68px;
+  width: 68px;
 `;
 
 export const DeliverymanData = styled.View`
@@ -32,21 +32,25 @@ export const DeliverymanData = styled.View`
 `;
 
 export const WelcomeData = styled.Text`
-  color: #666666;
+  color: #666;
   font-size: 12px;
 `;
 
 export const DeliverymanName = styled.Text`
-  color: #444444;
+  color: #444;
   font-size: 22px;
   font-weight: bold;
+  line-height: 29px;
 `;
 
 export const Logout = styled(TouchableOpacity)`
   width: 10%;
 `;
 
-export const Orders = styled.View``;
+export const Orders = styled.View`
+  padding: 0 20px;
+`;
+
 export const OrdersHeader = styled.View`
   flex-direction: row;
   margin-top: 22px;
@@ -77,7 +81,7 @@ export const OrdersHeaderLinkText = styled.Text`
 export const OrderList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
-  margin-bottom: 120px;
+  margin-bottom: 147px;
 `;
 
 export const OrderBox = styled.View`
