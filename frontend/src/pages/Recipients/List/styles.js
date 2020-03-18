@@ -92,7 +92,7 @@ export const BodyContent = styled.div`
 
     div.line {
       display: grid;
-      grid-template-columns: 10% 10% 30% 45% 5%;
+      grid-template-columns: 10% 30% 55% 5%;
       width: 100%;
       background: #fff;
       margin-bottom: 21px;
@@ -100,7 +100,7 @@ export const BodyContent = styled.div`
       font-size: 16px;
       text-align: left;
       align-items: center;
-      padding: 11px 14px 11px 25px;
+      padding: 13.5px 14px 13.5px 25px;
       border-radius: 4px;
 
       div {

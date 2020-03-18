@@ -71,6 +71,18 @@ export const Content = styled.div`
     font-size: 14px;
   }
 
+  .grid1 {
+    display: grid;
+    grid-template-columns: auto 20% 20%;
+    grid-gap: 25px;
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 25px;
+  }
+
   div.data {
     margin-top: 20px;
 
