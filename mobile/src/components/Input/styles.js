@@ -4,8 +4,8 @@ export const Container = styled.View`
   background-color: #fff;
   border: solid 1px #ddd;
   border-radius: 4px;
-  height: 46px;
-  padding: 0 15px;
+  height: 45px;
+  padding: 0;
 
   flex-direction: row;
   align-items: center;
@@ -16,6 +16,6 @@ export const TInput = styled.TextInput.attrs({
 })`
   color: #444;
   flex: 1;
-  font-size: 15px;
-  margin-left: 10px;
+  font-size: 16px;
+  margin-left: 0px;
 `;

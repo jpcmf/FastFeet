@@ -21,13 +21,13 @@ export const Image = styled.Image`
 
 export const Form = styled.View`
   align-self: stretch;
-  margin-top: 50px;
+  margin-top: 37px;
 `;
 
 export const FormInput = styled(Input)`
-  margin-bottom: 10px;
+  margin-bottom: 0;
 `;
 
 export const SubmitButton = styled(Button)`
-  margin-top: 5px;
+  margin-top: 15px;
 `;
