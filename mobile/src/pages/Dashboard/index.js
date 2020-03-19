@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { signOut } from '~/store/modules/auth/actions';
 
 import {
