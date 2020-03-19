@@ -64,13 +64,13 @@ export default function OrderNavigator() {
           headerStyle: {
             backgroundColor: '#7D40E7',
             elevation: 0,
-            height: 150,
+            // height: 150,
           },
           headerLeftContainerStyle: {
-            paddingBottom: 70,
+            // paddingBottom: 70,
           },
           headerTitleContainerStyle: {
-            paddingBottom: 70,
+            // paddingBottom: 70,
           },
           headerTintColor: '#fff',
         }}

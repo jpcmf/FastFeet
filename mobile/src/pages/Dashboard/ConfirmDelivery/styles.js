@@ -4,10 +4,10 @@ import { TouchableOpacity, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 export const Container = styled.View`
-  padding: 20px;
-  flex: 1;
-  elevation: 1;
   background-color: #fff;
+  elevation: 1;
+  flex: 1;
+  padding: 20px;
 `;
 
 export const ConfirmContainer = styled.View`
@@ -46,11 +46,13 @@ export const StyledTouchableOpacity = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
 `;
+
 export const PendingView = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
 `;
+
 export const StyledText = styled.Text`
   font-size: 14px;
 `;
@@ -74,17 +76,17 @@ export const SendButton = styled(TouchableOpacity)`
 
 export const SendText = styled.Text`
   color: #fff;
-  padding: 15px;
-  font-weight: bold;
   font-size: 16px;
+  font-weight: bold;
+  padding: 15px;
   text-align: center;
 `;
 
 export const ChangePictureIcon = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
   align-items: center;
   elevation: 1;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
 `;
