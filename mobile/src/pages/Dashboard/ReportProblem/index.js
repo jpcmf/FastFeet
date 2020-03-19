@@ -8,6 +8,7 @@ import {
   Form,
   StyledTextInput,
   StyledButton,
+  TopBox,
 } from './styles';
 
 import api from '~/services/api';
@@ -43,22 +44,24 @@ export default function ReportProblem({ navigation, route }) {
   }
   return (
     <Container>
-      <ReportContainer>
-        <Form>
-          <StyledTextInput
-            multiline
-            placeholder="Descreva aqui o problema que na entrega."
-            textAlignVertical="top"
-            numberOfLines={10}
-            onChangeText={setDescription}
-            onSubmitEditing={handleSubmit}
-            value={description}
-          />
-          <StyledButton loading={loading} onPress={handleSubmit}>
-            Enviar
-          </StyledButton>
-        </Form>
-      </ReportContainer>
+      <TopBox>
+        <ReportContainer>
+          <Form>
+            <StyledTextInput
+              multiline
+              placeholder="Descreva aqui o problema que na entrega."
+              textAlignVertical="top"
+              numberOfLines={10}
+              onChangeText={setDescription}
+              onSubmitEditing={handleSubmit}
+              value={description}
+            />
+            <StyledButton loading={loading} onPress={handleSubmit}>
+              Enviar
+            </StyledButton>
+          </Form>
+        </ReportContainer>
+      </TopBox>
     </Container>
   );
 }

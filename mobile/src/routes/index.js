@@ -17,13 +17,13 @@ export default function Routes() {
         <Stack.Screen
           name="Dashboard"
           component={Dashboard}
-          options={{ headerShown: false }}
+          options={{ headerMode: 'screen', headerShown: false }}
         />
       ) : (
         <Stack.Screen
           name="SignIn"
           component={SignIn}
-          options={{ headerShown: false }}
+          options={{ headerMode: 'screen', headerShown: false }}
         />
       )}
     </Stack.Navigator>

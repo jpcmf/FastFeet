@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import Order from '~/pages/Dashboard';
 import OrderDetail from '~/pages/Dashboard/OrderDetails';
 import ReportProblem from '~/pages/Dashboard/ReportProblem';
@@ -10,91 +11,58 @@ const Stack = createStackNavigator();
 
 export default function OrderNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Order"
-        component={Order}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="OrderDetail"
-        component={OrderDetail}
-        options={{
-          headerTitle: 'Detalhes da encomenda',
-          headerStyle: {
-            backgroundColor: '#7D40E7',
-            elevation: 0,
-            // height: 150,
-          },
-          headerLeftContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTintColor: '#fff',
-        }}
-      />
-      <Stack.Screen
-        name="ReportProblem"
-        component={ReportProblem}
-        options={{
-          headerShown: true,
-          headerTitle: 'Informar um problema',
-          headerStyle: {
-            backgroundColor: '#7D40E7',
-            elevation: 0,
-            // height: 150,
-          },
-          headerLeftContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTintColor: '#fff',
-        }}
-      />
-      <Stack.Screen
-        name="ViewProblem"
-        component={ViewProblem}
-        options={{
-          headerShown: true,
-          headerTitle: 'Visualizar problemas',
-          headerStyle: {
-            backgroundColor: '#7D40E7',
-            elevation: 0,
-            // height: 150,
-          },
-          headerLeftContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTintColor: '#fff',
-        }}
-      />
-      <Stack.Screen
-        name="ConfirmDelivery"
-        component={ConfirmDelivery}
-        options={{
-          headerShown: true,
-          headerTitle: 'Confirmar entrega',
-          headerStyle: {
-            backgroundColor: '#7D40E7',
-            elevation: 0,
-            // height: 150,
-          },
-          headerLeftContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            // paddingBottom: 70,
-          },
-          headerTintColor: '#fff',
-        }}
-      />
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Order"
+          component={Order}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OrderDetail"
+          component={OrderDetail}
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: 'Detalhes da encomenda',
+            headerTitleStyle: { fontWeight: 'bold' },
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="ReportProblem"
+          component={ReportProblem}
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: 'Informar um problema',
+            headerTitleStyle: { fontWeight: 'bold' },
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="ViewProblem"
+          component={ViewProblem}
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: 'Visualizar problemas',
+            headerTitleStyle: { fontWeight: 'bold' },
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="ConfirmDelivery"
+          component={ConfirmDelivery}
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: 'Confirmar entrega',
+            headerTitleStyle: { fontWeight: 'bold' },
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          }}
+        />
+      </Stack.Navigator>
+    </>
   );
 }

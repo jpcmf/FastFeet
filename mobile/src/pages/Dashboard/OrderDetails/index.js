@@ -29,6 +29,7 @@ import {
   Action,
   ActionBox,
   ActionText,
+  TopBox,
 } from './styles';
 
 import api from '~/services/api';
@@ -101,90 +102,97 @@ function OrderDetails({ route, navigation }) {
 
   return (
     <Container>
-      <InfoContainer persistenScrollbar>
-        <OrderInfo>
-          <InfoTitle>
-            <Icon name="local-shipping" size={20} color="#7D40E7" />
-            <TitleText>Informações da entrega</TitleText>
-          </InfoTitle>
+      <TopBox>
+        <InfoContainer persistenScrollbar>
+          <OrderInfo>
+            <InfoTitle>
+              <Icon name="local-shipping" size={20} color="#7D40E7" />
+              <TitleText>Informações da entrega</TitleText>
+            </InfoTitle>
 
-          <OrderInfoTitle>DESTINATÁRIO</OrderInfoTitle>
-          <OrderInfoText>{item.recipient.name}</OrderInfoText>
+            <OrderInfoTitle>DESTINATÁRIO</OrderInfoTitle>
+            <OrderInfoText>{item.recipient.name}</OrderInfoText>
 
-          <OrderInfoTitle>ENDEREÇO DE ENTREGA</OrderInfoTitle>
-          <OrderInfoText>
-            {item.recipient.street}, {item.recipient.number}{' '}
-            {item.recipient.complement ? ` - ${item.recipient.complement}` : ''}
-            {' - '}
-            {item.recipient.city} - {item.recipient.state}, {item.recipient.cep}
-          </OrderInfoText>
+            <OrderInfoTitle>ENDEREÇO DE ENTREGA</OrderInfoTitle>
+            <OrderInfoText>
+              {item.recipient.street}, {item.recipient.number}{' '}
+              {item.recipient.complement
+                ? ` - ${item.recipient.complement}`
+                : ''}
+              {' - '}
+              {item.recipient.city} - {item.recipient.state},{' '}
+              {item.recipient.cep}
+            </OrderInfoText>
 
-          <OrderInfoTitle>PRODUTO</OrderInfoTitle>
-          <OrderInfoText>{item.product}</OrderInfoText>
-        </OrderInfo>
+            <OrderInfoTitle>PRODUTO</OrderInfoTitle>
+            <OrderInfoText>{item.product}</OrderInfoText>
+          </OrderInfo>
 
-        <DeliveryInfo>
-          <InfoTitle>
-            <Icon name="event" size={20} color="#7D40E7" />
-            <TitleText>Situação da entrega</TitleText>
-          </InfoTitle>
+          <DeliveryInfo>
+            <InfoTitle>
+              <Icon name="event" size={20} color="#7D40E7" />
+              <TitleText>Situação da entrega</TitleText>
+            </InfoTitle>
 
-          <DeliveryInfoTitle>PRODUTO</DeliveryInfoTitle>
-          <DeliveryInfoText>{getFormattedStatus(item)}</DeliveryInfoText>
-          <DeliveryDates>
-            <DeliveryStartDate>
-              <DeliveryDateTitle>DATA DE RETIRADA</DeliveryDateTitle>
-              <DeliveryDateText>
-                {formattedStartDate !== null ? formattedStartDate : '__/__/__'}
-              </DeliveryDateText>
-            </DeliveryStartDate>
+            <DeliveryInfoTitle>PRODUTO</DeliveryInfoTitle>
+            <DeliveryInfoText>{getFormattedStatus(item)}</DeliveryInfoText>
+            <DeliveryDates>
+              <DeliveryStartDate>
+                <DeliveryDateTitle>DATA DE RETIRADA</DeliveryDateTitle>
+                <DeliveryDateText>
+                  {formattedStartDate !== null
+                    ? formattedStartDate
+                    : '__/__/__'}
+                </DeliveryDateText>
+              </DeliveryStartDate>
 
-            <DeliveryEndDate>
-              <DeliveryDateTitle>DATA DE RETIRADA</DeliveryDateTitle>
-              <DeliveryDateText>
-                {formattedEndDate !== null ? formattedEndDate : '__/__/__'}
-              </DeliveryDateText>
-            </DeliveryEndDate>
-          </DeliveryDates>
-        </DeliveryInfo>
+              <DeliveryEndDate>
+                <DeliveryDateTitle>DATA DE RETIRADA</DeliveryDateTitle>
+                <DeliveryDateText>
+                  {formattedEndDate !== null ? formattedEndDate : '__/__/__'}
+                </DeliveryDateText>
+              </DeliveryEndDate>
+            </DeliveryDates>
+          </DeliveryInfo>
 
-        <ActionButtons>
-          {!item.start_date && !item.canceled_at && (
-            <Withdraw onPress={() => handleWithdraw(item)}>
-              <WithdrawText>RETIRAR ENCOMENDA</WithdrawText>
-            </Withdraw>
-          )}
+          <ActionButtons>
+            {!item.start_date && !item.canceled_at && (
+              <Withdraw onPress={() => handleWithdraw(item)}>
+                <WithdrawText>RETIRAR ENCOMENDA</WithdrawText>
+              </Withdraw>
+            )}
 
-          {item.start_date && !item.canceled_at && !item.end_date && (
-            <Action>
-              <ActionBox
-                onPress={() =>
-                  navigation.navigate('ReportProblem', { order: item })
-                }
-              >
-                <Icon name="cancel" size={20} color="#E74040" />
-                <ActionText>Informar{'\n'}Problema</ActionText>
-              </ActionBox>
-              <ActionBox
-                onPress={() =>
-                  navigation.navigate('ViewProblem', { order: item })
-                }
-              >
-                <Icon name="error" size={20} color="#E7BA40" />
-                <ActionText>Visualizar{'\n'}Problemas</ActionText>
-              </ActionBox>
-              <ActionBox
-                onPress={() =>
-                  navigation.navigate('ConfirmDelivery', { order: item })
-                }
-              >
-                <Icon name="check-circle" size={20} color="#7D40E7" />
-                <ActionText>Confirmar{'\n'}Entrega</ActionText>
-              </ActionBox>
-            </Action>
-          )}
-        </ActionButtons>
-      </InfoContainer>
+            {item.start_date && !item.canceled_at && !item.end_date && (
+              <Action>
+                <ActionBox
+                  onPress={() =>
+                    navigation.navigate('ReportProblem', { order: item })
+                  }
+                >
+                  <Icon name="cancel" size={20} color="#E74040" />
+                  <ActionText>Informar{'\n'}Problema</ActionText>
+                </ActionBox>
+                <ActionBox
+                  onPress={() =>
+                    navigation.navigate('ViewProblem', { order: item })
+                  }
+                >
+                  <Icon name="error" size={20} color="#E7BA40" />
+                  <ActionText>Visualizar{'\n'}Problemas</ActionText>
+                </ActionBox>
+                <ActionBox
+                  onPress={() =>
+                    navigation.navigate('ConfirmDelivery', { order: item })
+                  }
+                >
+                  <Icon name="check-circle" size={20} color="#7D40E7" />
+                  <ActionText>Confirmar{'\n'}Entrega</ActionText>
+                </ActionBox>
+              </Action>
+            )}
+          </ActionButtons>
+        </InfoContainer>
+      </TopBox>
     </Container>
   );
 }

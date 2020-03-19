@@ -14,6 +14,7 @@ import {
   ProblemBox,
   ProblemDescription,
   ProblemDate,
+  TopBox,
 } from './styles';
 
 import api from '~/services/api';
@@ -72,6 +73,7 @@ function ViewProblem({ navigation, route, isFocused }) {
   }, [refreshing, isFocused]); // eslint-disable-line
   return (
     <Container>
+      <TopBox />
       <OrderBox>
         <OrderName>Encomenda {order.id}</OrderName>
       </OrderBox>

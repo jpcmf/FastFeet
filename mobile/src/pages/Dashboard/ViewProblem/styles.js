@@ -3,21 +3,24 @@ import { ActivityIndicator } from 'react-native';
 
 export const Container = styled.View`
   background-color: #fff;
-  elevation: 1;
   flex: 1;
-  padding: 20px;
+`;
+
+export const TopBox = styled.View`
+  align-items: center;
+  background-color: #7d40e7;
+  height: 170px;
+  width: 100%;
 `;
 
 export const ViewContainer = styled.View`
-  background-color: #fff;
   border-radius: 4px;
-  elevation: 0;
   flex: 1;
+  padding: 0 20px;
 `;
 
 export const OrderBox = styled.View`
-  /* margin-top: -95px; */
-  elevation: 1;
+  margin-top: -70px;
   margin-bottom: 20px;
 `;
 
@@ -49,7 +52,7 @@ export const ProblemBox = styled.View`
   background-color: #fff;
   border-radius: 4px;
   border: 1px solid #eee;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.1); */
   flex-direction: row;
   height: 55px;
   justify-content: space-between;
@@ -67,6 +70,4 @@ export const ProblemDescription = styled.Text`
 export const ProblemDate = styled.Text`
   color: #c1c1c1;
   font-size: 12px;
-  /* padding: 0 10px 0; */
-  /* margin-bottom: 8px; */
 `;
