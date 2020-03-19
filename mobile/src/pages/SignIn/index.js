@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import logo from '~/assets/logo-fastfeet.png';
+import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
 
@@ -44,7 +44,7 @@ export default function SignIn() {
           />
 
           <SubmitButton loading={loading} onPress={() => handleSubmit(id)}>
-            Entrar
+            Entrar no sistema
           </SubmitButton>
         </Form>
       </Container>
