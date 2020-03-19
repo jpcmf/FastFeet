@@ -47,6 +47,8 @@ export default function ConfirmDelivery({ initialProps, route }) {
 
       data.append('file', {
         // uri: Platform.OS === 'ios' ? picture : picture.replace('file://', ''),
+        // name: takenPicture.split('/')[9],
+
         uri: takenPicture.uri,
         name: 'deliverySignature.jpg',
         type: 'image/jpge',
@@ -58,6 +60,7 @@ export default function ConfirmDelivery({ initialProps, route }) {
         end_date: new Date(),
         signature_id: response.data.id,
       });
+
       Alert.alert('Entrega confirmada com sucesso.');
 
       navigation.popToTop();
@@ -82,6 +85,7 @@ export default function ConfirmDelivery({ initialProps, route }) {
         type={type}
         ratio={ratio}
         autoFocus={autoFocus}
+        cameraProps={{ captureAudio: false }}
       />
       <PictureButton onPress={handlePicture}>
         <Icon name="camera" size={29} color="#fff" />
