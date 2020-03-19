@@ -3,53 +3,53 @@ import { Alert, Text, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { useNavigation } from '@react-navigation/native';
+import { useCamera } from 'react-native-camera-hooks';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
-  ConfirmContainer,
-  CameraContainer,
-  StyledTouchableOpacity,
-  PendingView,
-  CameraView,
-  ChangePicture,
-  PreviewPicture,
-  StyledRNCamera,
+  TopBox,
+  PictureButton,
   SendButton,
-  SendText,
-  ChangePictureIcon,
+  TextButton,
+  Camera,
 } from './styles';
 
 import api from '~/services/api';
 
-export default function ConfirmDelivery({ route, navigation }) {
+export default function ConfirmDelivery({ initialProps, route }) {
+  const navigation = useNavigation();
   const { order } = route.params;
-
-  const [picture, setPicture] = useState();
-  const [loading, setLoading] = useState(false);
 
   const deliveryman = useSelector(state => state.auth);
 
-  const takePicture = async camera => {
-    if (camera) {
-      const options = { quality: 0.5, base64: true };
+  const [
+    { cameraRef, type, ratio, autoFocus, autoFocusPoint },
+    { takePicture },
+  ] = useCamera(initialProps);
 
-      const data = await camera.takePictureAsync(options);
+  const [takenPicture, setTakenPicture] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-      setPicture(data.uri);
-    }
-  };
+  async function handlePicture() {
+    const data = await takePicture({ quality: 0.5 });
 
-  async function finishDelivery() {
+    setTakenPicture(data);
+  }
+
+  async function handleSubmit() {
     setLoading(true);
 
     try {
       const data = new FormData();
 
       data.append('file', {
+        // uri: Platform.OS === 'ios' ? picture : picture.replace('file://', ''),
+        uri: takenPicture.uri,
+        name: 'deliverySignature.jpg',
         type: 'image/jpge',
-        uri: Platform.OS === 'ios' ? picture : picture.replace('file://', ''),
-        name: picture.split('/')[9],
       });
 
       const response = await api.post('files', data);
@@ -58,12 +58,16 @@ export default function ConfirmDelivery({ route, navigation }) {
         end_date: new Date(),
         signature_id: response.data.id,
       });
+      Alert.alert('Entrega confirmada com sucesso.');
 
       navigation.popToTop();
-
-      Alert.alert('Entrega finalizada com sucesso.');
     } catch (error) {
       console.tron.warn(`Erro = ${error}`);
+
+      Alert.alert(
+        'Não foi possível confirmar a entrega',
+        'Houve um erro em nosso sistema'
+      );
     }
 
     setLoading(false);
@@ -71,70 +75,25 @@ export default function ConfirmDelivery({ route, navigation }) {
 
   return (
     <Container>
-      <ConfirmContainer>
-        <CameraContainer>
-          {!picture ? (
-            <StyledRNCamera
-              captureAudio={false}
-              type={StyledRNCamera.Constants.Type.back}
-              flashMode={StyledRNCamera.Constants.FlashMode.off}
-              androidCameraPermissionOptions={{
-                title: 'Permission to use camera',
-                message: 'We need your permission to use your camera',
-                buttonPositive: 'Ok',
-                buttonNegative: 'Cancel',
-              }}
-              androidRecordAudioPermissionOptions={{
-                title: 'Permission to use audio recording',
-                message: 'We need your permission to use your audio',
-                buttonPositive: 'Ok',
-                buttonNegative: 'Cancel',
-              }}
-            >
-              {({ camera, status }) => {
-                if (status !== 'READY')
-                  return (
-                    <PendingView>
-                      <Text>Waiting</Text>
-                    </PendingView>
-                  );
-                return (
-                  <CameraView>
-                    <StyledTouchableOpacity onPress={() => takePicture(camera)}>
-                      <Icon
-                        name="photo-camera"
-                        size={35}
-                        color="rgba(255,255,255,0.3)"
-                      />
-                    </StyledTouchableOpacity>
-                  </CameraView>
-                );
-              }}
-            </StyledRNCamera>
-          ) : (
-            <>
-              <ChangePicture onPress={() => setPicture(null)}>
-                <ChangePictureIcon>
-                  <Icon
-                    name="photo-camera"
-                    size={35}
-                    color="rgba(255,255,255,0.6)"
-                  />
-                </ChangePictureIcon>
-                <PreviewPicture source={{ uri: picture }} />
-              </ChangePicture>
-              <SendButton onPress={finishDelivery}>
-                <SendText>Finalizar Entrega</SendText>
-              </SendButton>
-            </>
-          )}
-        </CameraContainer>
-      </ConfirmContainer>
+      <TopBox />
+      <Camera
+        ref={cameraRef}
+        autoFocusPointOfInterest={autoFocusPoint.normalized}
+        type={type}
+        ratio={ratio}
+        autoFocus={autoFocus}
+      />
+      <PictureButton onPress={handlePicture}>
+        <Icon name="camera" size={29} color="#fff" />
+      </PictureButton>
+      <SendButton onPress={handleSubmit}>
+        <TextButton>Enviar</TextButton>
+      </SendButton>
     </Container>
   );
 }
 
 ConfirmDelivery.propTypes = {
+  initialProps: PropTypes.object,
   route: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
 };
