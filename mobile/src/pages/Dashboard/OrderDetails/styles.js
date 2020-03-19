@@ -79,6 +79,7 @@ export const DeliveryDates = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
+
 export const DeliveryDateTitle = styled.Text`
   color: #999999;
   font-size: 14px;
