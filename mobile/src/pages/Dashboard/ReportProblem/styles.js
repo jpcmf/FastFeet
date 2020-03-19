@@ -5,17 +5,19 @@ import Button from '~/components/Button';
 
 export const Container = styled.View`
   background-color: #fff;
-  elevation: 1;
   flex: 1;
-  padding: 20px;
+`;
+
+export const TopBox = styled.View`
+  align-items: center;
+  background-color: #7d40e7;
+  height: 170px;
+  width: 100%;
 `;
 
 export const ReportContainer = styled.View`
-  background-color: #fff;
-  border-radius: 4px;
-  elevation: 0;
-  flex: 1;
-  /* margin-top: -90px; */
+  margin-top: 100px;
+  width: 90%;
 `;
 
 export const Form = styled.View`
