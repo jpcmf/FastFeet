@@ -38,11 +38,11 @@ function OrderDetails({ route, navigation }) {
   const { item } = route.params;
 
   const formattedStartDate = item.end_date
-    ? format(parseISO(item.start_date), 'MM/dd/yyyy')
+    ? format(parseISO(item.start_date), 'dd/MM/yyyy')
     : null;
 
   const formattedEndDate = item.end_date
-    ? format(parseISO(item.start_date), 'MM/dd/yyyy')
+    ? format(parseISO(item.start_date), 'dd/MM/yyyy')
     : null;
 
   const getFormattedStatus = order => {
