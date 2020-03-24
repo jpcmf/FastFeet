@@ -8,7 +8,7 @@
 </h3>
 
 <p align="center">In this repository you will find the complete application of Rocketseat GoStack Bootcamp 9 🎓</p>
-<p align="center">You can check a teaser of the application [here](https://youtu.be/O970MkUCXs4) 🎥</p>
+<p align="center">You can check a teaser of the application [here](https://youtu.be/O970MkUCXs4/) 🎥</p>
 
 <p align="center">
   <a href="#coffee-back-end">Back-end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -35,6 +35,7 @@ npm install
 ```bash
 # run this command
 docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+# run this command
 docker start database
 ```
 
@@ -61,6 +62,7 @@ docker (the password you set in the docker run)
 ```bash
 # run this command
 docker run --name redisfastfeet -p 6379:6379 -d -t redis:alpine
+# run this command
 docker start redisfastfeet
 ```
 
