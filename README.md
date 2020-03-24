@@ -19,7 +19,7 @@
 
 # Build Setup
 
-The project requires [Node.js](https://nodejs.org/) to run locally.
+The project requires [Node.js](https://nodejs.org/) and [Docker](https://docs.docker.com/install/) to run locally.
 
 ## :coffee: Back-end
 
