@@ -1,18 +1,19 @@
 <h1 align="center">
-    <img alt="GoStack" src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/bootcamp-header.png" width="200px" />
+    <img alt="GoStack" src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/bootcamp-header.png" width="200" />
 </h1>
 
 <h3 align="center">
-  <img alt="FastFeet" src="https://i.imgur.com/LtZ2BBx.png" width="300px" /> <br/>
-  FastFeet Full Application
+  <img alt="FastFeet" src="https://i.imgur.com/LtZ2BBx.png" width="300" /> <br/>
+  FastFeet full application
 </h3>
 
-<p align="center">In this repository you will find the complete application of Rocketseat GoStack Bootcamp 9 🎓</p>
-<p align="center">You can check a teaser of the application [here](https://youtu.be/O970MkUCXs4/) 🎥</p>
+<p align="center">In this repository, you'll find the final challenge for Rocketseat's bootcamp GoStack 9.0 🎓 (2019/2020). It is a complete application, which includes a Back end, Front end and Mobile.</p>
+
+<p align="center">You can check a preview of the application [here](https://youtu.be/O970MkUCXs4/) 🎥</p>
 
 <p align="center">
-  <a href="#coffee-back-end">Back-end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#computer-front-end">Front-end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#coffee-back-end">Back end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#computer-front-end">Front end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#iphone-mobile">Mobile</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-license">License</a>
 </p>
@@ -21,16 +22,16 @@
 
 The project requires [Node.js](https://nodejs.org/) and [Docker](https://docs.docker.com/install/) to run locally.
 
-## :coffee: Back-end
+## :coffee: Back end
 
-After clone the repository go to the folder `backend` and install the dependencies.
+After cloning the repository, go to the folder named `backend` and install all the dependencies required.
 
 ```bash
 # install dependencies
 npm install
 ```
 
-### 1. create the Postgres database with Docker
+### 1. Creating the Postgres database with Docker
 
 ```bash
 # run this command
@@ -42,9 +43,9 @@ docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 docker start database
 ```
 
-### 2. access the Postgres database
+### 2. Accessing the Postgres database
 
-You need create a new database called `fastfeet`. I suggest you to use the [Postbird](https://www.electronjs.org/apps/postbird) for OSX. After install you need to set the configuration bellow and then create your database with `UTF8` client encoding.
+You must have to create a new database called `fastfeet`. I suggest you to use [Postbird](https://www.electronjs.org/apps/postbird) for `OSX`. After installing, you must have to add these configurations below and then create your database with `UTF8` client encoding.
 
 ```bash
 # host
@@ -60,7 +61,7 @@ postgres
 docker (the password you set in the docker run)
 ```
 
-### 3. create the Redis database
+### 3. Creating the Redis database
 
 ```bash
 # run this command
@@ -72,41 +73,41 @@ docker run --name redisfastfeet -p 6379:6379 -d -t redis:alpine
 docker start redisfastfeet
 ```
 
-### 4. change the .env file
+### 4. Changing the .env file
 
-Rename the `.env-example` to `.env` and configure with the database and redis details. Remember to set the `REDIS_HOST` to `127.0.0.1`.
+Rename the `.env-example` to `.env` and configure it with the database and redis details. Remember to set the `REDIS_HOST` to `127.0.0.1`.
 
-### 5. run sequelize migrate
+### 5. Running the sequelize migrations
 
 ```bash
 # run this command
 ./node_modules/.bin/sequelize db:migrate
 ```
 
-### 6. run sequelize seed
+### 6. Running the sequelize seeds
 
 ```bash
 # run this command
 ./node_modules/.bin/sequelize db:seed:all
 ```
 
-### 7. run server
+### 7. Running the server
 
 ```bash
 # run this command
 npm run dev
 ```
 
-### 8. run queue (mail server)
+### 8. Running the queue (mail server)
 
 ```bash
 # run this command
 npm run queue
 ```
 
-## :computer: Front-end
+## :computer: Front end
 
-After clone the repository go to the folder `frontend` and install the dependencies and run the project with the command `npm start`.
+After cloning the repository, go to the folder named `frontend` and install all the dependencies required and run the project by using the command `npm start`.
 
 ```bash
 # install dependencies
@@ -120,9 +121,9 @@ npm start
 
 ## :iphone: Mobile
 
-After clone the repository go to the folder `mobile` and install the dependencies and run the project with the command `react-native run-ios`.
+After cloning the repository, go to the folder named `mobile`, install all the dependencies and run the project by using the command `react-native run-ios`.
 
-Note: The version of mobile app was development for `iOS`. You need the Xcode client in your computer to run the application in the simulator or configure to use the app via USB. There is another options to run the app, for i.e. [Expo](https://expo.io/learn).
+Note: The version of mobile app was developed for `iOS` system. You'll need the Xcode client in your computer in order to run the application in the Simulator or configure to use the app via USB. There are other options for running the app, for eg., [Expo](https://expo.io/learn).
 
 ```bash
 # install dependencies
