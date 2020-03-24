@@ -8,6 +8,7 @@
 </h3>
 
 <p align="center">In this repository you will find the complete application of Rocketseat GoStack Bootcamp 9 🎓</p>
+<p align="center">You can check a teaser of the application [here](https://youtu.be/O970MkUCXs4) 🎥</p>
 
 <p align="center">
   <a href="#coffee-back-end">Back-end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
