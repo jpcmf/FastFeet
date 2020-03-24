@@ -29,7 +29,7 @@ After clone the repository go to the folder `backend` and install the dependenci
 npm install
 ```
 
-### create the Postgres database with Docker
+### 1. create the Postgres database with Docker
 
 ```bash
 # run this command
@@ -37,7 +37,7 @@ docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 docker start database
 ```
 
-### access the Postgres database
+### 2. access the Postgres database
 
 You need create a new database called `fastfeet`. I suggest you to use the [Postbird](https://www.electronjs.org/apps/postbird) for OSX. After install you need to set the configuration bellow and then create your database with `UTF8` client encoding.
 
@@ -55,7 +55,7 @@ postgres
 docker (the password you set in the docker run)
 ```
 
-### create the Redis database
+### 3. create the Redis database
 
 ```bash
 # run this command
@@ -63,32 +63,32 @@ docker run --name redisfastfeet -p 6379:6379 -d -t redis:alpine
 docker start redisfastfeet
 ```
 
-### change the .env file
+### 4. change the .env file
 
 Rename the `.env-example` to `.env` and configure with the database and redis details. Remember to set the `REDIS_HOST` to `127.0.0.1`.
 
-### run sequelize migrate
+### 5. run sequelize migrate
 
 ```bash
 # run this command
 ./node_modules/.bin/sequelize db:migrate
 ```
 
-### run sequelize seed
+### 6. run sequelize seed
 
 ```bash
 # run this command
 ./node_modules/.bin/sequelize db:seed:all
 ```
 
-### run server
+### 7. run server
 
 ```bash
 # run this command
 npm run dev
 ```
 
-### run queue (mail server)
+### 8. run queue (mail server)
 
 ```bash
 # run this command
